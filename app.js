@@ -1,3 +1,4 @@
+// @ts-nocheck
 const triggers = document.querySelectorAll('.cool > li');
 const background = document.querySelector('.dropdownBackground');
 const nav = document.querySelector('.top');
@@ -7,6 +8,21 @@ function handleEnter() {
   // the value of this is inherited from the function when using the arrow function
   setTimeout(() => this.classList.add('trigger-enter-active'), 150);
   background.classList.add('open');
+
+  const dropdown = this.querySelector('.dropdown');
+  const dropdownCoords = dropdown.getBoundingClientRect();
+  const navCoords = nav.getBoundingClientRect();
+
+  const coords = {
+    height: dropdownCoords.height,
+    width: dropdownCoords.width,
+    top: dropdownCoords.top,
+    left: dropdownCoords.left,
+  };
+
+  background.style.setProperty('width', `${coords.width}px`);
+  background.style.setProperty('height', `${coords.height}px`);
+  background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px)`)
 }
 
 function handleLeave() {
